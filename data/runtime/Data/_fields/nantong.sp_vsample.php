@@ -1,0 +1,1 @@
+a:7:{i:0;s:10:"vsample_id";i:1;s:5:"title";i:2;s:11:"vsample_url";i:3;s:9:"vs_status";i:4;s:10:"createtime";s:3:"_pk";s:10:"vsample_id";s:5:"_type";a:5:{s:10:"vsample_id";s:6:"int(8)";s:5:"title";s:11:"varchar(50)";s:11:"vsample_url";s:12:"varchar(100)";s:9:"vs_status";s:10:"tinyint(1)";s:10:"createtime";s:8:"datetime";}}

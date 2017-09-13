@@ -1,0 +1,57 @@
+<admintpl file="header" />
+<body class="J_scroll_fixed">
+	<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('ad/index')}">所有广告</a></li>
+			<li><a href="{:U('ad/add')}">添加广告</a></li>
+		</ul>
+		<div class="common-form">
+			<form method="post" class="form-horizontal J_ajaxForm" action="{:U('ad/edit_post')}">
+				<input type="hidden"  name="ad_createtime" value="{:date('Y-m-d H:i:s')}"/>
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">广告名称:</label>
+						<div class="controls">
+							<input type="text" class="input" name="ad_name" value="{$ad_name}"><span class="must_red">*</span>
+							<input type="hidden" class="input" name="ad_id" value="{$ad_id}">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">广告代码:</label>
+						<div class="controls">
+							<textarea name="ad_content" rows="5" cols="57">{$ad_content}</textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">广告图片:</label>
+						<div class="controls">
+							<input type='hidden' name='ad_url' id='thumb' value='{$ad_url}'>
+							<a href='javascript:void(0);' onclick="flashupload('thumb_images', '附件上传','thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">
+								<if condition="empty($ad_url)">
+									<img src="__ROOT__/statics/images/icon/upload-pic.png" id='thumb_preview' width='135' height='113' style='cursor:hand' />
+									<else/>
+									<img src="{:sp_get_asset_upload_path($ad_url)}" id='thumb_preview' width='135' height='113' style='cursor:hand;height:113px;' />
+								</if>
+							</a>
+							<input type="button"  class="btn" onclick="$('#thumb_preview').attr('src','__ROOT__/statics/images/icon/upload-pic.png');$('#thumb').val('');return false;" value="取消图片">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">状态:</label>
+						<div class="controls">
+							<label class="radio"><input type="radio" name="status" value="1" <if condition="$status eq 1">checked</if> ><span>上架</span></label>
+							<label class="radio"><input type="radio" name="status" value="0" <if condition="$status eq 0">checked</if> ><span>下架</span></label>
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn_submit J_ajax_submit_btn">更新</button>
+					<a class="btn" href="__URL__">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+	<script type="text/javascript" src="__ROOT__/statics/js/content_addtop.js"></script>
+</body>
+</html>

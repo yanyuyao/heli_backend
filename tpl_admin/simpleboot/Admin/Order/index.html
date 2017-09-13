@@ -1,0 +1,108 @@
+<admintpl file="header" />
+<body class="J_scroll_fixed">
+<div class="wrap J_check_wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:U('order/index')}">所有订单</a></li>
+    </ul>
+    <form class="well form-search" method="post" action="{:U('order/index')}">
+        <div class="search_type cc mb10">
+            <div class="mb10">
+                    <button><a href="javascript:open_iframe_dialog('<?php echo U("order/setTime");?>','接单设置');" >接单设置</a></button>&nbsp;&nbsp;&nbsp;
+					<span class="mr20">
+						名称：
+						<input type="text" name="serve_name" style="width: 200px;" value="{$formget.serve_name}" placeholder="请输入服务名字...">
+                        订单编号：
+                        <input type="text" name="order_num" style="width: 200px;" value="{$formget.order_num}" placeholder="请输入订单编号...">
+						<input type="submit" class="btn btn-primary" value="查询" />
+					</span>
+            </div>
+        </div>
+    </form>
+    <div class="common-form">
+        <form method="post" class="J_ajaxForm" action="#">
+            <php> $status=array("1"=>"未支付","2"=>"已支付","3"=>"已处理","4"=>"已完成","5"=>"申请退款","6"=>"退款完成"); </php>
+            <table width="100%" class="table table-hover table-bordered table-list">
+                <thead>
+                <tr>
+                    <th width="50">序号</th>
+                    <th>订单编号</th>
+                    <th width="100">OpenId</th>
+                    <th>服务名称</th>
+                    <th>邮箱</th>
+                    <th>姓名/公司</th>
+                    <th>电话</th>
+                    <th>语音咨询</th>
+                    <th>文本咨询</th>
+                    <th width="90">状态</th>
+                    <th width="90">审核</th>
+                    <th width="90">下单时间</th>
+                    <th width="90">地址</th>
+                    <th width="90">客服</th>
+                    <th width="90">顾问</th>
+                    <th width="120">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <foreach name="orders" item="vo">
+                    <tr>
+                        <td>{$vo.order_id}</td>
+                        <td>{$vo.order_num}</td>
+                        <td>{$vo.openId}</td>
+                        <td>{$vo.serve_name}</td>
+                        <td>{$vo.order_email}</td>
+                        <td>{$vo.names}</td>
+                        <td>{$vo.order_tel}</td>
+                        <td>
+			<if condition="$show_zixun eq 1">
+			<if condition="$vo.order_vconsult neq ''">
+				<a href="{$vo.order_vconsult}" target="_blank">下载</a>
+			</if>
+			</if>
+			</td>
+                        <td>
+				<!--{$vo.order_tconsult}-->
+			<if condition="$show_zixun eq 1">
+			<if condition="$vo.order_tconsult neq ''">
+                            <a href="javascript:open_iframe_dialog('<?php echo U("order/tconsult",array("body"=>$vo["order_tconsult"]));?>','文字咨询');">查看</a>
+			</if>
+			</if>
+			</td>
+                        <td>{$status[$vo['status']]}</td>
+                        <td>{$vo.order_opinion}</td>
+                        <td>{$vo.order_createtime}</td>
+                        <td>{$vo.province} {$vo.city} {$vo.area}</td>
+                        <td>{$vo.kefu}</td>
+                        <td>{$vo.guwen}</td>
+                        <td>
+                            <a href="javascript:open_iframe_dialog('<?php echo U("order/edit",array("id"=>$vo["order_id"]));?>','订单审核');">审核</a>|
+                           <a href="{:U('order/delete',array('id'=>$vo['order_id']))}" class="J_ajax_del">删除</a>
+                       </td>
+                   </tr>
+               </foreach>
+               </tbody>
+           </table>
+           <div class="pagination">{$Page}</div>
+       </form>
+   </div>
+</div>
+<script src="__ROOT__/statics/js/common.js?"></script>
+<script type="text/javascript">
+
+    function open_iframe_dialog(url,title,options){
+        var params={
+            title: title,
+            lock:true,
+            opacity:0,
+            width:"50%",
+            close: function() {
+                window.location.reload();//关闭子页面后要进行的操作
+            }
+        };
+        params=options?$.extend(params,options):params;
+        Wind.use('artDialog','iframeTools', function () {
+            art.dialog.open(url, params);
+        });
+    }
+</script>
+</body>
+</html>

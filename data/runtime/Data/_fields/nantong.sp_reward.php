@@ -1,0 +1,1 @@
+a:7:{i:0;s:9:"reward_id";i:1;s:8:"users_id";i:2;s:17:"reward_createtime";i:3;s:12:"reward_money";i:4;s:6:"status";s:3:"_pk";s:9:"reward_id";s:5:"_type";a:5:{s:9:"reward_id";s:10:"bigint(20)";s:8:"users_id";s:10:"bigint(20)";s:17:"reward_createtime";s:8:"datetime";s:12:"reward_money";s:10:"varchar(8)";s:6:"status";s:10:"tinyint(1)";}}

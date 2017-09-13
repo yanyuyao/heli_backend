@@ -1,0 +1,3 @@
+a:16:{s:9:"site_name";s:12:"南通河狸";s:9:"site_host";s:20:"http://helizixun.cn/";s:8:"site_tpl";s:11:"simplebootx";s:15:"site_adminstyle";s:7:"bluesky";s:8:"site_icp";s:0:"";s:16:"site_admin_email";s:17:"1534114938@qq.com";s:11:"site_tongji";s:0:"";s:14:"site_copyright";s:0:"";s:10:"site_about";s:354:"河狸咨询由南通河狸机械科技有限公司于2017年创建，通过一流的专家团队，先进的线上线下调研方案，为用户提供完美的咨询服务。
+
+河狸咨询坚持贯彻“坦诚的笑容”为员工的行为标准，以“合作式服务”为原则，提供更权威，更真实，更具体的新型咨询服务体验。";s:11:"site_reward";s:30:"/data/upload/59b8e104586bb.gif";s:14:"site_seo_title";s:12:"南通河狸";s:17:"site_seo_keywords";s:0:"";s:20:"site_seo_description";s:86:"ThinkCMF是简约风网络科技发布的一款用于快速开发的内容管理框架";s:7:"urlmode";s:1:"0";s:11:"html_suffix";s:0:"";s:21:"comment_time_interval";i:60;}

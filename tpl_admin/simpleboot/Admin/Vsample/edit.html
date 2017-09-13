@@ -1,0 +1,44 @@
+<admintpl file="header" />
+<body class="J_scroll_fixed">
+<div class="wrap jj">
+    <ul class="nav nav-tabs">
+        <li><a href="{:U('vsample/index')}">所有语音</a></li>
+        <li class="active"><a href="{:U('vsample/add')}">添加语音</a></li>
+    </ul>
+    <div class="common-form">
+        <form method="post" class="form-horizontal J_ajaxForm" action="{:U('vsample/edit_post')}" enctype="multipart/form-data">
+            <input type="hidden"  name="vsample_id" value="{$vsample_id}"/>
+            <fieldset>
+                <div class="control-group">
+                    <label class="control-label">语音标题:</label>
+                    <div class="controls">
+                        <input type="text" class="input" name="title" value="{$title}">
+                        <span class="must_red">*</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">上传示例:</label>
+                    <div class="controls">
+                        <input type="file" name="vsample_url" class="upinput" />
+                        <!--<input type="hidden" name="vsample_url" value="yyy" class="param2">-->
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">状态:</label>
+                    <div class="controls">
+                        <label class="radio"><input type="radio" name="vs_status" value="1" <if condition="$vs_status eq 1">checked</if> ><span>显示</span></label>
+                        <label class="radio"><input type="radio" name="vs_status" value="0" <if condition="$vs_status eq 0">checked</if> ><span>不显示</span></label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn_submit">添加</button>
+                <a class="btn" href="{:U('vsample/index')}">返回</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="__ROOT__/statics/js/common.js"></script>
+<script type="text/javascript" src="__ROOT__/statics/js/content_addtop.js"></script>
+</body>
+</html>

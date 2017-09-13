@@ -1,0 +1,101 @@
+<admintpl file="header"/>
+<style type="text/css">
+    .col-auto { overflow: auto; _zoom: 1;_float: left;}
+    .col-right { float: right; width: 210px; overflow: hidden; margin-left: 6px; }
+    .table th, .table td {vertical-align: middle;}
+    .picList li{margin-bottom: 5px;}
+</style>
+</head>
+<body class="J_scroll_fixed">
+<div class="wrap J_check_wrap">
+    <form name="myform" id="myform" action="{:u('order/doSetTime')}" method="post" class="form-horizontal J_ajaxForms">
+        <input type="hidden" name="otime_id" value="1" />
+        <input type="hidden" name="createtime" value="{:date('Y-m-d H:i:s')}" />
+        <div class="url" url="{:U('Order/doSetTime')}"></div>
+        <div class="col-auto">
+            <div class="table_full">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="80">接单时间</th>
+                        <td>
+                            <input type="text" name="htime" checkvalue="{$otime.htime}" value="{$otime['htime']}" /> &nbsp;&nbsp;例如：2； 说明接单时间是2个小时
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">排队时间</th>
+                        <td>当前排队订单过多,
+				<input type="text" style="width:50px;" name="order_limit_day" value="{$order_limit_day}" /> 天
+				<input type="text" style="width:50px;" name="order_limit_hours" value="{$order_limit_hours}" /> 小时
+				后，客服会联系您！ 
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary btn_submit J_ajax_submit_btn" type="button"  id="subset">提交</button>
+            <a class="btn" id="J_dialog_close">返回</a>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__ROOT__/statics/js/common.js"></script>
+<script type="text/javascript" src="__ROOT__/statics/js/jquery142.js"></script>
+<script type="text/javascript">
+            $(document).ready(function(){
+                $('#subset').click(function(){
+                    var otime_id = $("input[name=otime_id]").val();
+                    var createtime = $("input[name=createtime]").val();
+                    var htime = $("input[name=htime]").val();
+                    var order_limit_day = $("input[name=order_limit_day]").val();
+                    var order_limit_hours = $("input[name=order_limit_hours]").val();
+                    var url =$('.url').attr('url');
+                    $.ajax({
+                        //提交数据的类型 POST GET
+                        type:"POST",
+                        //提交的网址
+                        url:url,
+                        //提交的数据
+                        data:{otime_id:otime_id,order_limit_day:order_limit_day,order_limit_hours:order_limit_hours,createtime:createtime,htime:htime},
+                        //返回数据的格式
+                        datatype: "json",//"xml", "html", "script", "json", "jsonp", "text".
+                        //成功返回之后调用的函数
+                        success:function(data){
+                            if(data==1){
+                                // e.preventDefault();
+                                alert('设置成功!');
+                                try{
+                                    art.dialog.close();
+                                }catch(err){
+                                    Wind.use('artDialog','iframeTools',function(){
+                                        art.dialog.close();
+                                    });
+                                };
+                            }else{
+                                alert('设置失败!');
+                            }
+
+                        }   ,
+                        //调用出错执行的函数
+                        error: function(){
+                           alert('参数错误!');
+                        }
+                    });
+                })
+            })
+    function open_iframe_dialog(url,title,options){
+        var params={
+            title: title,
+            lock:true,
+            opacity:0,
+            width:"50%"
+        };
+        params=options?$.extend(params,options):params;
+        Wind.use('artDialog','iframeTools', function () {
+            art.dialog.open(url, params);
+        });
+    }
+</script>
+
+</body>
+</html>

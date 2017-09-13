@@ -1,0 +1,1 @@
+a:5:{i:0;s:8:"otime_id";i:1;s:5:"htime";i:2;s:10:"createtime";s:3:"_pk";s:8:"otime_id";s:5:"_type";a:3:{s:8:"otime_id";s:6:"int(8)";s:5:"htime";s:6:"int(8)";s:10:"createtime";s:8:"datetime";}}

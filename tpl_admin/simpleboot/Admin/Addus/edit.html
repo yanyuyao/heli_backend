@@ -1,0 +1,272 @@
+<admintpl file="header"/>
+<style type="text/css">
+    .col-auto { overflow: auto; _zoom: 1;_float: left;}
+    .col-right { float: right; width: 210px; overflow: hidden; margin-left: 6px; }
+    .table th, .table td {vertical-align: middle;}
+    .picList li{margin-bottom: 5px;}
+</style>
+</head>
+<body class="J_scroll_fixed">
+<div class="wrap J_check_wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:U('Addus/index')}" style="background: #dddddd">加入我们</a></li>
+    </ul>
+    <form name="myform" id="myform" action="{:u('addus/edit_post')}" method="post" class="form-horizontal J_ajaxForms" enctype="multipart/form-data">
+        <input type="hidden" name="addus_id" value="{$addus_id}" />
+        <php> $sex=array("1"=>"男","0"=>"保密",'2'=>'女');
+            $marry=array("1"=>"已婚","0"=>"保密",'2'=>'未婚');
+            $status = array("1"=>"不同意","0"=>"未审核","2"=>"同意")
+        </php>
+        <div class="col-auto">
+            <div class="table_full">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="80">图片 </th>
+                        <td>
+                            <img src="{$addus_url}" height="100" width="90">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">姓名</th>
+                        <td><input type='text' name='addus_name' id='keywords' style="height:30px;" value="{$addus_name}"  class='input'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">性别</th>
+                        <td>
+                            <select name="addus_sex">
+                                <option value="0"  <if condition="$addus_sex eq 0">selected</if> >保密</option>
+                                <option value="1"  <if condition="$addus_sex eq 1">selected</if> >男</option>
+                                <option value="2"  <if condition="$addus_sex eq 2">selected</if> >女</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">身高 </th>
+                        <td>
+                            {$addus_height}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">出生年月</th>
+                        <td>
+                            {$addus_birthday}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">婚姻状况</th>
+                        <td>
+                            <select name="addus_marry">
+                                <option value="0"  <if condition="$addus_marry eq 0">selected</if> >保密</option>
+                                <option value="1"  <if condition="$addus_marry eq 1">selected</if> >已婚</option>
+                                <option value="2"  <if condition="$addus_marry eq 2">selected</if> >未婚</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">户口所在地 </th>
+                        <td>
+                           {$addus_addr}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">特长 </th>
+                        <td>
+                            {$addus_speciale}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">联系电话 </th>
+                        <td>
+                            {$addus_tel}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">毕业院校</th>
+                        <td>
+                            {$addus_educate}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">英语能力</th>
+                        <td>
+                            {$addus_english}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">工作能力</th>
+                        <td>
+                            {$addus_work}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">期望岗位</th>
+                        <td>
+                            {$addus_post}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">处理状态</th>
+                        <td>
+                            <select name="status">
+                                <option value="0" <if condition="$status eq 0">  selected </if>>未审核</option>
+                                <option value="1" <if condition="$status eq 1">  selected </if>>同意但未联系</option>
+                                <option value="2" <if condition="$status eq 2">  selected </if>>同意已联系,需要跟进</option>
+                                <option value="3" <if condition="$status eq 3">  selected </if>>同意并已完成</option>
+                                <option value="4" <if condition="$status eq 4">  selected </if>>不同意</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="80">处理意见</th>
+                        <td>
+                            <textarea name="addus_opinion" cols="30" rows="8" >{$addus_opinion}</textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary btn_submit J_ajax_submit_btn"type="submit">提交</button>
+            <a class="btn" href="{:U('addus/index')}">返回</a>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__ROOT__/statics/js/common.js"></script>
+<script type="text/javascript" src="__ROOT__/statics/js/content_addtop.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //setInterval(function(){public_lock_renewal();}, 10000);
+        $(".J_ajax_close_btn").on('click', function (e) {
+            e.preventDefault();
+            Wind.use("artDialog", function () {
+                art.dialog({
+                    id: "question",
+                    icon: "question",
+                    fixed: true,
+                    lock: true,
+                    background: "#CCCCCC",
+                    opacity: 0,
+                    content: "您确定需要关闭当前页面嘛？",
+                    ok:function(){
+                        setCookie("refersh_time",1);
+                        window.close();
+                        return true;
+                    }
+                });
+            });
+        });
+        /////---------------------
+        Wind.use('validate', 'ajaxForm', 'artDialog', function () {
+            //javascript
+
+            //编辑器
+            editorcontent = new baidu.editor.ui.Editor();
+            editorcontent.render( 'content' );
+            try{editorcontent.sync();}catch(err){};
+            //增加编辑器验证规则
+            jQuery.validator.addMethod('editorcontent',function(){
+                try{editorcontent.sync();}catch(err){};
+                return editorcontent.hasContents();
+            });
+            var form = $('form.J_ajaxForms');
+            //ie处理placeholder提交问题
+            if ($.browser.msie) {
+                form.find('[placeholder]').each(function () {
+                    var input = $(this);
+                    if (input.val() == input.attr('placeholder')) {
+                        input.val('');
+                    }
+                });
+            }
+            //表单验证开始
+            form.validate({
+                //是否在获取焦点时验证
+                onfocusout:false,
+                //是否在敲击键盘时验证
+                onkeyup:false,
+                //当鼠标掉级时验证
+                onclick: false,
+                //验证错误
+                showErrors: function (errorMap, errorArr) {
+                    //errorMap {'name':'错误信息'}
+                    //errorArr [{'message':'错误信息',element:({})}]
+                    try{
+                        $(errorArr[0].element).focus();
+                        art.dialog({
+                            id:'error',
+                            icon: 'error',
+                            lock: true,
+                            fixed: true,
+                            background:"#CCCCCC",
+                            opacity:0,
+                            content: errorArr[0].message,
+                            cancelVal: '确定',
+                            cancel: function(){
+                                $(errorArr[0].element).focus();
+                            }
+                        });
+                    }catch(err){
+                    }
+                },
+                //验证规则
+                rules: {'post[post_title]':{required:1},'post[post_content]':{editorcontent:true}},
+                //验证未通过提示消息
+                messages: {'post[post_title]':{required:'请输入标题'},'post[post_content]':{editorcontent:'内容不能为空'}},
+                //给未通过验证的元素加效果,闪烁等
+                highlight: false,
+                //是否在获取焦点时验证
+                onfocusout: false,
+                //验证通过，提交表单
+                submitHandler: function (forms) {
+                    $(forms).ajaxSubmit({
+                        url: form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+                        dataType: 'json',
+                        beforeSubmit: function (arr, $form, options) {
+
+                        },
+                        success: function (data, statusText, xhr, $form) {
+                            if(data.status){
+                                setCookie("refersh_time",1);
+                                //添加成功
+                                Wind.use("artDialog", function () {
+                                    art.dialog({
+                                        id: "succeed",
+                                        icon: "succeed",
+                                        fixed: true,
+                                        lock: true,
+                                        background: "#CCCCCC",
+                                        opacity: 0,
+                                        content: data.info,
+                                        button:[
+                                            {
+                                                name: '继续编辑？',
+                                                callback:function(){
+                                                    //reloadPage(window);
+                                                    return true;
+                                                },
+                                                focus: true
+                                            },{
+                                                name: '返回列表页',
+                                                callback:function(){
+                                                    location='{:U('Addus/index')}';
+                                                    return true;
+                                                }
+                                            }
+                                        ]
+                                    });
+                                });
+                            }else{
+                                isalert(data.info);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        ////-------------------------
+    });
+</script>
+</body>
+</html>
