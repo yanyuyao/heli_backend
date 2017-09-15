@@ -165,10 +165,9 @@ class OrderController extends HomeBaseController {
     /*订单列表*/
     public function orderList(){
         $userid = $_REQUEST['user_id']?$_REQUEST['user_id']:2;
-   
         $orderList =  $this->order_model->alias("a")->field('a.order_id,a.order_num,b.serve_id,b.serve_title,b.serve_url,b.serve_price,a.serve_name,a.status')
 				->join(C ( 'DB_PREFIX' )."serve b ON a.serve_id = b.serve_id")
-				->where('a.users_id='.$userid)
+				->where('a.status <> 9 and a.users_id='.$userid)
 				->order('a.order_id desc')
 				->select();
        if(empty($orderList)){
@@ -438,5 +437,24 @@ class OrderController extends HomeBaseController {
 		//$data = array('status'=>$status,'msg'=>$msg,"url"=>$url);
 		//$data = array("status"=>$status,"msg"=>$msg,"url"=>$url);
         	//echo json_encode($data);
+	}
+	public function deleteOrder(){
+		$oid = $_REQUEST['order_id'];
+		if(!$oid){
+			$status = 1002; 
+			$msg = '参数错误';
+		}else{
+			$data = array("status"=>9);
+			$flag = M('order')->data($data)->where("order_id = '$oid'")->save();
+			if($flag){
+				$status = 1001;
+				$msg = "删除成功";
+			}else{
+				$status = 1003;
+				$msg = '删除失败';
+			}
+		}
+		echo json_encode(array('status'=>$status,'msg'=>$msg));
+		exit;
 	}
 }
