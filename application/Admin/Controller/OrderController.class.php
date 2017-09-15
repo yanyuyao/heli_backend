@@ -160,7 +160,7 @@ class OrderController extends AdminbaseController{
                 }
             }
         }
-
+	//	$where_ands[] = " status <> 9 ";
         $where= join(" and ", $where_ands);
         //echo $where;
 
